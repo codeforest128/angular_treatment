@@ -1,0 +1,13 @@
+.icon {
+	margin-right: 15px;
+}
+
+.double-col {
+	display: flex;
+	flex-direction: row;
+	padding: 1rem 0rem 0 1.5rem;
+	div {
+		flex-direction: column;
+		align-self: center;
+	}
+}

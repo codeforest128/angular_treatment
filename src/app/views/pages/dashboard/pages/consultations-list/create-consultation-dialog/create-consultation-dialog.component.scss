@@ -1,0 +1,12 @@
+::ng-deep .mat-tab-label {
+  flex: 1!important;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+  display: none!important;
+}
+
+::ng-deep .mat-dialog-container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

@@ -1,0 +1,518 @@
+<div *ngIf="consultation$ | async as consultation" [formGroup]="newForm">
+  <div *ngIf="newForm" [formGroup]="newForm" fxLayout.sm="column" fxLayout.xs="column" fxLayout="row"
+    fxLayoutGap="20px grid" fxLayoutAlign="space-between stretch">
+  </div>
+
+  <div fxLayoutAlign="start stretch" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap.xs="20px "
+    fxLayoutGap="20px grid" fxLayoutGap.md="20px grid" fxLayoutGap.sm="20px grid">
+
+    <div style="padding: 0; height: auto;" fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+    <div fxFlexFill class="kt-portlet pathologie-container">
+      <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+          <h3 class="kt-portlet__head-title">
+            <img class="icon" [attr.src]="'https://img.icons8.com/color/48/000000/user-male.png'" /> Informations du patient
+          </h3>
+        </div>
+      </div>
+      <div class="kt-portlet__body">
+
+          <!-- Patient Data -->
+          <div class="kt-section__content" formGroupName="patient_data">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="mb-5">
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput placeholder="Nom du patient" formControlName="name">
+                  <mat-error *ngIf="name.errors?.required && (name.touched || name.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                  <mat-error *ngIf="name.errors?.pattern && (name.touched || name.dirty)">
+                    Le format du nom n'est pas correct
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput placeholder="Prénom du patient" formControlName="firstname">
+                  <mat-error *ngIf="firstname.errors?.required && (firstname.touched || firstname.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                  <mat-error *ngIf="firstname.errors?.pattern && (firstname.touched || firstname.dirty)">
+                    Le format du prénom n'est pas correct
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between stretch">
+              <div fxFlex="0 0 calc(50% - 5px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput type="number" placeholder="Taille (cm)" formControlName="size">
+                  <mat-error *ngIf="size.errors?.required && (size.touched || size.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                  <mat-error *ngIf="size.errors?.min && (size.touched || size.dirty)">
+                    Le taille doit être supérieure à 0
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="mb-5" fxFlex="0 0 calc(50% - 5px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput type="number" placeholder="Poids (Kg)" formControlName="weight">
+                  <mat-error *ngIf="weight.errors?.required && (weight.touched || weight.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                  <mat-error *ngIf="weight.errors?.min && (weight.touched || weight.dirty)">
+                    Le poids doit être supérieur à 0
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="mb-3" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between stretch">
+              <mat-form-field>
+                <mat-select placeholder="Sexe" formControlName="gender">
+                  <mat-option value="male">Masculin</mat-option>
+                  <mat-option value="female">Féminin</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex="0 0 calc(50% - 5px)">
+                <input matInput placeholder="IMC" type="number" disabled
+                  [value]="(weight.value / (size.value/100*size.value/100)).toFixed(1)">
+              </mat-form-field>
+            </div>
+            <div *ngIf="gender.value == 'female'" class="mb-3" fxLayout="row" fxLayoutGap="10px"
+              fxLayoutAlign="space-between stretch">
+              <mat-checkbox formControlName="pregnant" value="pregnant.value">Grossesse en cours</mat-checkbox>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<div style="padding: 0; height: auto;" fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+    <div fxFlexFill class="kt-portlet">
+      <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+          <h3 class="kt-portlet__head-title">
+            <img class="icon" [attr.src]="'https://img.icons8.com/color/48/000000/scalpel.png'" /> Intervention
+          </h3>
+        </div>
+      </div>
+      <div class="kt-portlet__body">
+          <!-- Intervention -->
+          <div class="kt-section__content" [formGroup]='interventionDetailsForm'>
+            <div class="mb-5" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput placeholder="Intervention prévue" formControlName="name">
+                  <mat-error
+                    *ngIf="interventionName.errors?.required && (interventionName.touched || interventionName.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                  <mat-error
+                    *ngIf="interventionName.errors?.pattern && (interventionName.touched || interventionName.dirty)">
+                    Le format du nom de l'intervention n'est pas correct
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput placeholder="Date d'intervention" [matDatepicker]="picker" [min]="minDate"
+                    formControlName="date">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error
+                    *ngIf="interventionDate.errors?.required && (interventionDate.touched || interventionDate.dirty)">
+                    Le champ est requis
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="mb-5">
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <mat-select placeholder="Type d'hospitalisation" formControlName="type">
+                    <mat-option [value]="'ambulatoire'">Ambulatoire</mat-option>
+                    <mat-option [value]="'hospitalisation'">Hospitalisation</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="0 0 calc(50% - 10px)">
+                <mat-form-field style="width: 100%">
+                  <input matInput placeholder="Date de consultation"
+                    [value]="(formateDate(consultation.interventionDate))" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="mb-5" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="0 0 calc(50% - 10px)">
+                <input matInput placeholder="Nom du chirurgien" formControlName="surgeon">
+                <mat-error
+                  *ngIf="chirurgienName.errors?.required && (chirurgienName.touched || chirurgienName.dirty)">
+                  Le champ est requis
+                </mat-error>
+                <mat-error *ngIf="chirurgienName.errors?.pattern && (chirurgienName.touched || chirurgienName.dirty)">
+                  Le format du nom du chirurgien n'est pas correct
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="0 0 calc(50% - 10px)">
+                <input matInput placeholder="NIR" formControlName="NIR">
+                <mat-error *ngIf="nir.errors?.pattern && (nir.touched || nir.dirty)">
+                  Le NIR doit être composé de 13 chiffres
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+      <!-- Antécédents chirurgicaux -->
+         <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+          title="Antécédents chirurgicaux" inputPlaceholder="Antécédent"
+          iconPath="https://img.icons8.com/color/48/000000/triangular-bandage.png"
+          [values]="getProp(['antecedents', 'surgery'], null, 0)" defaultPatho="surgery"
+          (change)="setFormValue(['antecedents', 'surgery'], $event)">
+          </kt-pathologies>
+
+      <!-- Complications antérieures-->
+        <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+        title="Complications antérieures" iconPath="https://img.icons8.com/color/48/000000/bandage.png"
+          inputPlaceholder="Complication" noneText="Aucune" defaultPatho="complications"
+          [values]="getProp(['antecedents', 'complications'], null, 0)"
+          (change)="setFormValue(['antecedents', 'complications'], $event)"></kt-pathologies>
+
+    <!-- Allergies-->
+    <kt-pathologies title="Allergies" iconPath="https://img.icons8.com/color/48/000000/high-priority.png"
+      fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      defaultPatho="allergies" inputPlaceholder="Allergie" noneText="Non connue"
+      [values]="getProp(['antecedents', 'allergies'], null, 0)"
+      (change)="setFormValue(['antecedents', 'allergies'], $event)"></kt-pathologies>
+
+    <!-- Traitement -->
+    <kt-treatment fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Traitement actuel" inputPlaceholder="Recherche ici" iconPath="https://img.icons8.com/color/48/000000/pills.png"
+      [values]="getProp(['treatment'], null, 0)" (change)="setFormValue(['treatment'], $event)"
+      [autocomplete]="'getMedic'"></kt-treatment>
+
+    <!-- Obstétrique -->
+     <kt-obstetric *ngIf="pregnant.value" fxFlex="0 0 calc(66.66%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)"
+        fxFlex.xs="auto" title="Grossesse en cours" iconPath="https://img.icons8.com/color/48/000000/fetus.png"
+        [value]="getProp(['antecedents', 'pathologies', 'obstetric'], null, 0)"
+        [patient_data]="newForm['controls'].patient_data" [weight]="weight.value"
+        (change)="setFormValue(['antecedents', 'pathologies', 'obstetric'], $event)"
+        (weightChange)="setFormValue(['patient_data', 'weight'], $event)">
+     </kt-obstetric>  
+
+    <!-- Cardiologie -->
+    <kt-pathologies formGroupName="examination" title="Cardiologie" fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)"
+      fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto" iconPath="https://img.icons8.com/color/48/000000/medical-heart.png"
+      [values]="getProp(['antecedents', 'pathologies', 'cardio'], null, 0)" [autocomplete]="'getPathology'"
+      defaultPatho="cardio" [autocompType]="'cardio'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'cardio'], $event)">
+
+          <!--Paraclinic - cardiology-->
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Paraclinique
+                </mat-panel-title>
+              <mat-panel-description>
+                  ECG, ETT...
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-form-field>
+                <input matInput placeholder="ECG">
+              </mat-form-field>
+              <mat-label>FEVG</mat-label>
+              <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1"
+                  min="10"
+                  max="90">
+              </mat-slider>
+              <mat-form-field>
+                <input matInput placeholder="FEVG">
+              </mat-form-field>
+              <mat-label>FEVG</mat-label>
+              <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1"
+                  min="10"
+                  max="90">
+              </mat-slider>
+            </mat-expansion-panel>
+            </mat-accordion>
+     
+    </kt-pathologies>
+
+   <!-- Respiratoire -->
+   <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+     title="Respiratoire" iconPath="https://img.icons8.com/color/48/000000/lungs.png"
+     [values]="getProp(['antecedents', 'pathologies', 'respiratory'], null, 0)" [autocompType]="'respiratory'"
+     defaultPatho="respiratory" [autocomplete]="'getPathology'"
+     (change)="setFormValue(['antecedents', 'pathologies', 'respiratory'], $event)">
+
+           <!--Paraclinic - respiratory-->
+           <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Paraclinique
+                </mat-panel-title>
+              <mat-panel-description>
+                  Rx, EFR...
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-form-field>
+                <input matInput placeholder="Radio Pulmonaire">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" placeholder="VEMS (L)" formControlName="forced_expiratory_volume, 54014004">   <!--Commentaire : à revoir quand on aura fait le point sur comment intégrer les numéros SNOMED dans le code -->
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Tiffeneau">
+              </mat-form-field>
+              <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1"
+                  min="10"
+                  max="90">
+              </mat-slider>
+            </mat-expansion-panel>
+            </mat-accordion>
+
+   </kt-pathologies>
+
+    <!-- Neurologie -->
+    <kt-pathologies title="Neurologie" iconPath="https://img.icons8.com/color/48/000000/brain.png"
+      fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      [autocomplete]="'getPathology'" [values]="getProp(['antecedents', 'pathologies', 'neuro'], null, 0)"
+      defaultPatho="neuro" [autocompType]="'neuro'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'neuro'], $event)">
+    </kt-pathologies>
+
+    <!-- Digestif -->
+    <kt-pathologies title="Digestif" iconPath="https://img.icons8.com/color/48/000000/stomach.png"
+      fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      [autocomplete]="'getPathology'" [autocompType]="'digestion'" defaultPatho="digestion"
+      [values]="getProp(['antecedents', 'pathologies', 'digestion'], null, 0)"
+      (change)="setFormValue(['antecedents', 'pathologies', 'digestion'], $event)">
+    </kt-pathologies>
+
+    <!-- Métabolique -->
+    <kt-pathologies title="Métabolique" iconPath="https://img.icons8.com/color/48/000000/diabetes.png"
+      fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      [autocomplete]="'getPathology'" [autocompType]="'metabolic'" defaultPatho="metabolic"
+      [values]="getProp(['antecedents', 'pathologies', 'metabolic'], null, 0)"
+      (change)="setFormValue(['antecedents', 'pathologies', 'metabolic'], $event)">
+    </kt-pathologies>
+
+    <!-- Uro-Nephro -->
+    <kt-pathologies title="Uro-Nephrologique" iconPath="https://img.icons8.com/color/48/000000/kidney.png"
+      fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      [values]="getProp(['antecedents', 'pathologies', 'uro_nephro'], null, 0)" [autocompType]="'uro_nephro'"
+      defaultPatho="uro_nephro" [autocomplete]="'getPathology'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'uro_nephro'], $event)">
+    </kt-pathologies>
+
+    <!-- Hémato -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Hématologique" iconPath="https://img.icons8.com/color/48/000000/drop-of-blood.png"
+      [values]="getProp(['antecedents', 'pathologies', 'hemato'], null, 0)" [autocompType]="'hemato'"
+      defaultPatho="hemato" [autocomplete]="'getPathology'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'hemato'], $event)">
+    </kt-pathologies>
+    
+    <!-- Gynéco -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Gynécologique" iconPath="https://img.icons8.com/color/48/000000/uterus.png"
+      [values]="getProp(['antecedents', 'pathologies', 'gyneco'], null, 0)" [autocompType]="'gyneco'"
+      defaultPatho="gyneco" [autocomplete]="'getPathology'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'gyneco'], $event)">
+    </kt-pathologies>
+
+    <!-- Toxiques -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+    title="Toxiques" iconPath="https://img.icons8.com/color/48/000000/smoking.png" defaultPatho="toxic"
+    [values]="getProp(['antecedents', 'pathologies', 'toxic'], null, 0)"
+    (change)="setFormValue(['antecedents', 'pathologies', 'toxic'], $event)">
+    </kt-pathologies>
+
+    <!-- Autres Pathologies -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+    title="Autres pathologies" iconPath="https://img.icons8.com/color/48/000000/microorganisms.png"
+    [values]="getProp(['antecedents', 'pathologies', 'other'], null, 0)" [autocompType]="'other'" defaultPatho="other"
+    [autocomplete]="'getPathology'" (change)="setFormValue(['antecedents', 'pathologies', 'other'], $event)">
+    </kt-pathologies>
+
+    <!-- Antécédents familiaux -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Antécédents familliaux" iconPath="https://img.icons8.com/color/48/000000/safety-collection-place.png"
+      defaultPatho="family" [values]="getProp(['antecedents', 'pathologies', 'family'], null, 0)"
+      [autocompType]="'family'" [autocomplete]="'getPathology'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'family'], $event)">
+    </kt-pathologies>
+
+
+    <!-- Examens comp.
+    <div fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      formGroupName="examination">
+      <div fxFlexFill class="kt-portlet pathologie-container">
+        <div class="kt-portlet__head">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              <img src="https://img.icons8.com/color/48/000000/treatment-plan.png" alt="icon" class="icon"> Examens
+              complémentaires
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <div class="kt-section">
+            <div class="kt-section__content text-block">
+              <ckeditor formControlName="complementary" [editor]="Editor" [config]="editorConfig"></ckeditor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    -->
+
+    <!-- Dentition -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Dentition" iconPath="https://img.icons8.com/color/48/000000/false-teeth.png"
+      [values]="getProp(['antecedents', 'pathologies', 'dentition'], null, 0)" [autocompType]="'dentition'"
+      defaultPatho="dentition" [autocomplete]="'getPathology'"
+      (change)="setFormValue(['antecedents', 'pathologies', 'dentition'], $event)">
+    </kt-pathologies>
+
+    <!-- Examen clinique -->
+     <kt-clinicalexam fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+     fxFlex.xs="auto" title="Examen clinique"
+     iconPath="https://img.icons8.com/color/48/000000/stethoscope.png"
+     [value]="getProp(['clinical_exam'], null, 0)"
+     (change)="setFormValue(['clinical_exam'], $event)">
+     </kt-clinicalexam>
+
+    <!-- Résultats biologiques -->
+    <div fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      formGroupName="examination">
+      <div fxFlexFill class="kt-portlet pathologie-container" formGroupName="blood">
+        <div class="kt-portlet__head">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              <img src="https://img.icons8.com/cotton/48/000000/blood-sample.png" alt="icon" class="icon"> Biologie
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <div class="kt-section">
+            <div class="kt-section__content">
+              <div class="mb-2" fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="HB" placeholder="Hb g/dL">
+                </mat-form-field>
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="platelet" placeholder="plaquettes G/L">
+                </mat-form-field>
+              </div>
+              <mat-label class="mb-2">Groupe sanguin</mat-label>
+              <mat-radio-group class="mb-4" fxLayout="row" formControlName="blood_type"
+                fxLayoutAlign="space-between start" aria-label="Select an option">
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'a+'"></mat-radio-button>
+                  <span>A+</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'a-'"></mat-radio-button>
+                  <span>A-</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'b+'"></mat-radio-button>
+                  <span>B+</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'b-'"></mat-radio-button>
+                  <span>B-</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'ab+'"></mat-radio-button>
+                  <span>AB+</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'ab-'"></mat-radio-button>
+                  <span>AB-</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'o+'"></mat-radio-button>
+                  <span>O+</span>
+                </div>
+                <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-radio-button [value]="'o-'"></mat-radio-button>
+                  <span>O-</span>
+                </div>
+              </mat-radio-group>
+              <div class="mb-4" fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field fxFlex="grow">
+                  <mat-select placeholder="RAI" formControlName="RAI">
+                    <mat-option [value]="'positif'">Positif</mat-option>
+                    <mat-option [value]="'negatif'">Negatif</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="TCA" placeholder="TCA">
+                </mat-form-field>
+              </div>
+              <div class="mb-4" fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="TP" placeholder="TP (%)">
+                </mat-form-field>
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="Na" placeholder="Na (mmol/L)">
+                </mat-form-field>
+              </div>
+              <div class="mb-2" fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="K" placeholder="K (mmol/L)">
+                </mat-form-field>
+                <mat-form-field fxFlex="grow">
+                  <input matInput type="number" formControlName="creat" placeholder="Creat (UI/L)">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+
+    <!-- Informations médicale du patient -->
+    <kt-pathologies fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      title="Informations données"
+      iconPath="https://img.icons8.com/color/48/000000/about.png"
+      inputPlaceholder="informations médicales du patient" noneText="Aucune"
+      [values]="getProp(['antecedents', 'complications'], null, 0)"
+      (change)="setFormValue(['antecedents', 'complications'], $event)"></kt-pathologies>  
+
+    <!-- Premedication -->
+    <kt-treatment fxFlex="0 0 calc(33.33%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+    title="Prémédication" inputPlaceholder="Recherche ici" iconPath="https://img.icons8.com/color/48/000000/supplement-bottle.png"
+    [values]="getProp(['premedication'], null, 0)" (change)="setFormValue(['premedication'], $event)"
+    [autocomplete]="'getMedic'">
+    </kt-treatment>   
+
+
+    <!-- Protocole intervention -->
+      <kt-protocol fxFlex="0 0 calc(100%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto"
+      fxFlex.xs="auto" title="Protocole"
+      [value]="getProp(['intervention', 'protocol'], null, 0)"
+      (change)="setFormValue(['intervention', 'protocol'], $event)">
+    </kt-protocol>
+  </div>

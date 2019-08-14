@@ -1,0 +1,74 @@
+<div fxFlexFill class="kt-portlet pathologie-container">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        <img *ngIf="iconPath" class="icon" [attr.src]="iconPath" /> {{title}}
+      </h3>
+    </div>
+    <span class="pathologie-count">
+      <h4 (click)="ras_form()" class="ras">RAS</h4>
+    </span>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="kt-section">
+      <div class="kt-section__content">
+        <div fxFlex="0 0 calc(66.66%)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field style="width: 15%">
+              <input matInput (blur)="onChange($event)" [(ngModel)]="currentValue.blood_pressure_systo" type="number" placeholder="PAs">
+            </mat-form-field>&nbsp;&nbsp;&nbsp;
+            <mat-form-field style="width: 15%">
+              <input matInput (blur)="onChange($event)" [(ngModel)]="currentValue.blood_pressure_diasto" type="number" placeholder="PAd">
+            </mat-form-field>&nbsp;&nbsp;&nbsp;
+            <mat-form-field style="width: 15%">
+              <input matInput (blur)="onChange($event)" [(ngModel)]="currentValue.blood_pressure_diasto" type="number" placeholder="FC">
+            </mat-form-field>&nbsp;&nbsp;&nbsp;
+            <mat-form-field style="width: 15%">
+              <input matInput (blur)="onChange($event)" [(ngModel)]="currentValue.blood_pressure_diasto" type="number" placeholder="Sp02">
+            </mat-form-field>
+          </div>
+          <mat-checkbox (change)="onChange($event)" [(ngModel)]="currentValue.normal_cardiac_auscultation">
+            Auscultation cardiaque normale
+          </mat-checkbox>
+          <mat-checkbox (change)="onChange($event)" [(ngModel)]="currentValue.normal_pulmonary_auscultation">
+              Auscultation pulmonaire normale
+          </mat-checkbox>
+          <div>
+            <mat-form-field style="width: 100%">
+              <mat-label>Auscultation (Autre)</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        [(ngModel)]="currentValue.pulmonary_auscult"
+                        (blur)="onChange($event)"
+                        style="overflow: hidden"></textarea>
+            </mat-form-field>
+          </div>
+          <h4>Veines</h4>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            Abord veineux :
+              <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.veinous_access.choice_index">
+                <mat-radio-button *ngFor="let choice of currentValue.veinous_access.choices; let i = index" [value]="i"
+                >{{choice}}</mat-radio-button>
+              </mat-radio-group>
+          </div>
+          <mat-slide-toggle>VVP difficile</mat-slide-toggle>>
+          <h4>Autres</h4>
+          <div>
+              <mat-form-field style="width: 100%">
+                <mat-label>Autres observations</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          [(ngModel)]="currentValue.comment"
+                          (blur)="onChange($event)"
+                          style="overflow: hidden"></textarea>
+              </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

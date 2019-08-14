@@ -1,0 +1,58 @@
+<div class="kt-portlet__head">
+	<div class="kt-portlet__head-label">
+		<h3 class="kt-portlet__head-title">
+			<!-- <img class="icon" src="https://img.icons8.com/color/48/000000/doctors-bag.png" /> -->
+			Information Générale
+		</h3>
+	</div>
+</div>
+<div class="kt-portlet__body">
+	<div class="double-col">
+		<div fxFlex="0 0 calc(60%)" fxFlex.md="0 0 calc(60%)" fxFlex.sm="0 0 calc(60%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 70%">
+				<input matInput type="text" placeholder="Intervention Prévue" [value]="interventionDetails.name" disabled>
+			</mat-form-field>
+		</div>
+		<div fxFlex="0 0 calc(40%)" fxFlex.md="0 0 calc(40%)" fxFlex.sm="0 0 calc(40%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 100%">
+				<input matInput type="text" placeholder="Date cs.">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="double-col">
+		<div fxFlex="0 0 calc(60%)" fxFlex.md="0 0 calc(60%)" fxFlex.sm="0 0 calc(60%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 70%">
+				<input matInput type="text" placeholder="Type d'hospitalisation" [value]="interventionDetails.type" disabled>
+			</mat-form-field>
+		</div>
+		<div fxFlex="0 0 calc(40%)" fxFlex.md="0 0 calc(40%)" fxFlex.sm="0 0 calc(40%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 100%">
+				<input matInput type="text" placeholder="Date inter." [value]="getDate(interventionDetails.date)" disabled>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="double-col">
+		<div fxFlex="0 0 calc(60%)" fxFlex.md="0 0 calc(60%)" fxFlex.sm="0 0 calc(60%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 70%">
+				<input matInput type="text" placeholder="Chirurgien" [value]="interventionDetails.surgeon" disabled>
+			</mat-form-field>
+		</div>
+		<div fxFlex="0 0 calc(40%)" fxFlex.md="0 0 calc(40%)" fxFlex.sm="0 0 calc(40%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 100%">
+				<input matInput type="text" placeholder="Urgent?" [value]="interventionDetails.emergency == false ? 'Non' : 'Oui'" disabled>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="double-col">
+		<div fxFlex="0 0 calc(60%)" fxFlex.md="0 0 calc(60%)" fxFlex.sm="0 0 calc(60%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 70%">
+				<input matInput type="text" placeholder="IADE">
+			</mat-form-field>
+		</div>
+		<div fxFlex="0 0 calc(40%)" fxFlex.md="0 0 calc(40%)" fxFlex.sm="0 0 calc(40%)" fxFlex.xs="auto">
+			<mat-form-field style="width: 100%">
+				<input matInput type="text" placeholder="Interne">
+			</mat-form-field>
+		</div>
+	</div>
+</div>

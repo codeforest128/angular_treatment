@@ -1,0 +1,97 @@
+.kt-section {
+  margin-bottom: 0;
+}
+
+.kt-section__title {
+  margin-bottom: 10px;
+}
+
+::ng-deep .mat-radio-group {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fcfcfc+0,f9f9fc+50,f9f9fc+100 */
+background: #fcfcfc; /* Old browsers */
+background: -moz-linear-gradient(top, #fcfcfc 0%, #f9f9fc 50%, #f9f9fc 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #fcfcfc 0%,#f9f9fc 50%,#f9f9fc 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #fcfcfc 0%,#f9f9fc 50%,#f9f9fc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f9f9fc',GradientType=0 ); /* IE6-9 */
+border: solid 1px #d9d9ee;
+border-radius: 5px;
+padding: 15px 15px;
+}
+
+.bloc_patient {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.asa {
+  font-size: 2em;
+  font-weight: 700;
+
+  .asa-value {
+    color: #5868dc;
+  }
+}
+
+.seriouses-container {
+  position: relative;
+  padding-left: 15px;
+
+  .serious-icon {
+    position: absolute;
+    top: -23.5px;
+    left: -8.5px;
+  }
+}
+
+.seriouses {
+  min-height: 80px;
+  max-height: 400px;
+  border: solid 1px #eba9a9;
+  border-radius: 5px;
+  padding: 0 20px;
+  overflow-y: scroll;
+
+  .seriouses-item {
+    min-width: 40%;
+    padding: 20px 0;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+:host ::ng-deep .ck-editor__editable {
+  min-height: 300px;
+
+  &.small {
+    min-height: 100px;
+  }
+}
+
+:host ::ng-deep .text-block .ck-editor__editable {
+  min-height: 200px;
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+:host ::ng-deep .kt-portlet__body {
+  min-height: 240px;
+  padding-bottom: 0;
+
+  &.bloc-auto {
+    min-height: auto;
+  }
+}
+
+.pathologie-container {
+  padding: 100;
+  .kt-section {
+    margin-bottom: 0;
+  }
+
+  .icon {
+    margin-right: 15px;
+  }
+}

@@ -1,0 +1,22 @@
+:host {
+	.kt-subheader__desc {
+		margin: 0;
+	}
+}
+
+.selected {
+	margin-bottom: 0;
+	margin-right: 15px;
+	font-weight: 600;
+}
+
+.notselected {
+	font-size: inherit;
+	transition-duration: 500ms
+}
+
+.notselected:hover {
+	font-size: 1.5em;
+	cursor: pointer;
+	transition-duration: 500ms
+}

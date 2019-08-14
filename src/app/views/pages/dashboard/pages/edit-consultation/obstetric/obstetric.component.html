@@ -1,0 +1,144 @@
+<div fxFlexFill class="kt-portlet pathologie-container">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        <img *ngIf="iconPath" class="icon" [attr.src]="iconPath" /> {{title}}
+      </h3>
+    </div>
+    <span class="pathologie-count">
+      <h4 (click)="ras_form()" class="ras">RAS</h4>
+    </span>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="kt-section">
+      <div class="kt-section__content">
+
+
+        <div fxLayout="column">
+            <div fxLayout="column">
+              <h4>Grossesse / Mère</h4>
+            <mat-form-field style="width: 30%">
+              <input [(ngModel)]="currentValue.term_preg_date" (dateChange)="onChange($event)" matInput placeholder="Date du terme" [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div>Poids &nbsp; &nbsp;
+              <mat-form-field>
+                <input [(ngModel)]="currentValue.weight_before_preg" (blur)="onChange($event)" matInput type="number" placeholder="Avant grossesse">
+              </mat-form-field>
+              &nbsp; &nbsp; &nbsp; &nbsp;
+              <span [formGroup]="patient_data">
+              <mat-form-field>
+                <input (change)="onChange($event)" formControlName="weight" matInput type="number" placeholder="Actuel" [value]="weight">
+              </mat-form-field>
+            </span>
+            </div>
+        </div>
+
+        <div fxFlex="100%">
+            <div fxFlex="100%" style="margin-right: 20px;">
+          Dos facile
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.easy_back" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="true"></mat-radio-button>
+              <span>Oui</span>
+            </div>
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="false"></mat-radio-button>
+              <span>Non</span>
+            </div>
+          </mat-radio-group>
+          Varices
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.varicoses" fxLayout="row"  fxLayoutAlign="space-evenly start">
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="true"></mat-radio-button>
+              <span>Oui</span>
+            </div>
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="false"></mat-radio-button>
+              <span>Non</span>
+            </div>
+          </mat-radio-group>
+        </div>
+
+            <div fxFlex="100%">
+          Pré-éclempsie
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.preeclampsia" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="true"></mat-radio-button>
+              <span>Oui</span>
+            </div>
+            <div class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="false"></mat-radio-button>
+              <span>Non</span>
+            </div>
+          </mat-radio-group>
+          Péridurale
+          <mat-radio-group [disabled]="currentValue.epidural_required" (change)="onChange($event)" [(ngModel)]="currentValue.epidural.choice_index" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div [style.opacity]="currentValue.epidural_required ? 0.6 : 1" *ngFor="let choice of currentValue.epidural.choices; let i = index" class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="i"></mat-radio-button>
+              <span>{{choice}}</span>
+            </div>
+          </mat-radio-group>
+        </div>
+        </div>
+        <mat-checkbox (change)="epidural_required_change($event)" [(ngModel)]="currentValue.epidural_required">Péridurale indication médicale</mat-checkbox>
+        <h4 style="padding-top: 5px;">Échographie / Foetus</h4>
+        <div>
+            <mat-form-field style="width: 30%">
+                <input [(ngModel)]="currentValue.ultrasono_date" (dateChange)="onChange($event)" matInput placeholder="Date de l'échographie" [matDatepicker]="echopicker">
+                <mat-datepicker-toggle matSuffix [for]="echopicker"></mat-datepicker-toggle>
+                <mat-datepicker #echopicker></mat-datepicker>
+              </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <mat-form-field>
+              <input [(ngModel)]="currentValue.foetus_count" (blur)="onChange($event)" matInput type="number" placeholder="Nombre de foetus">
+            </mat-form-field>
+          </div>
+        <div fxFlex="100%">
+            <div fxFlex="100%" style="margin-right: 20px;">
+          Présentation
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.foetus_presentation.choice_index" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div *ngFor="let choice of currentValue.foetus_presentation.choices; let i = index" class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="i"></mat-radio-button>
+              <span>{{choice}}</span>
+            </div>
+          </mat-radio-group>
+          Biométrie foetale
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.fetal_biometrics.choice_index" fxLayout="row"  fxLayoutAlign="space-evenly start">
+            <div *ngFor="let choice of currentValue.fetal_biometrics.choices; let i = index" class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="i"></mat-radio-button>
+              <span>{{choice}}</span>
+            </div>
+          </mat-radio-group>
+        </div>
+
+            <div fxFlex="100%">
+          Placenta
+          <mat-radio-group (change)="onChange($event)" [(ngModel)]="currentValue.placenta.choice_index" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div *ngFor="let choice of currentValue.placenta.choices; let i = index" class="radio-container" fxLayout="column" fxLayoutAlign="center center">
+              <mat-radio-button [value]="i"></mat-radio-button>
+              <span>{{choice}}</span>
+            </div>
+          </mat-radio-group>
+        </div>
+        </div>
+        <mat-form-field>
+            <mat-label>Commentaire</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      [(ngModel)]="currentValue.comment"
+                      (blur)="onChange($event)"
+                      style="overflow: hidden"></textarea>
+          </mat-form-field>
+      </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

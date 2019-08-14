@@ -1,0 +1,16 @@
+
+<h1 mat-dialog-title>
+    <img *ngIf="iconPath" class="icon" [attr.src]="iconPath" /> {{title}}
+</h1>
+<div mat-dialog-content>
+    <div class="patho-container" fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="40px grid">
+      <div class="patho-checkbox" fxFlex="50%" *ngFor="let val of choices" (click)="toggleItem($event, val)">
+        <mat-checkbox (click)="$event.preventDefault()"  style="margin-right: 10px" [checked]="isValInArray(this.selecteds, val)" class="example-margin"></mat-checkbox>
+        <span>{{ val.name }}</span>
+      </div>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="end start" mat-dialog-actions>
+  <button mat-button (click)="close(null)">Annuler</button>
+  <button mat-button color="primary" (click)="close(selecteds)" cdkFocusInitial>Sauvegarder</button>
+</div>

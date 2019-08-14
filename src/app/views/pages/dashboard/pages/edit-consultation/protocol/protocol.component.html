@@ -1,0 +1,214 @@
+<div fxFlex="grow" class="pb-5">
+  <div class="kt-portlet" style="height: 100%">
+    <div class="kt-portlet__body" style="height: 100%">
+      <div class="kt-section" style="height: 100%">
+        <div class="kt-section__content" style="height: 100%">
+
+          <!--First row-->
+          <div fxFlex="1 0 calc(33,33% - 20px)" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+              <div fxFlex="33.33%">
+
+                  <div>
+                  <h4 class="mb-2">Score ASA</h4>
+                  <mat-button-toggle-group [(ngModel)]="currentValue.ASA"  (change)="emitValues()">
+                      <mat-button-toggle value="1" class="green">
+                        1
+                      </mat-button-toggle>
+                      <mat-button-toggle value="2" class="green">
+                        2
+                      </mat-button-toggle>
+                      <mat-button-toggle value="3" class="orange">
+                        3
+                      </mat-button-toggle>
+                      <mat-button-toggle value="4" class="red">
+                        4
+                      </mat-button-toggle>
+                      <mat-button-toggle value="5" class="red">
+                        5
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <mat-button-toggle-group [(ngModel)]="currentValue.ASA"  (change)="emitValues()">  <!--Modification/creation of property "emergency" (previously formControlName="emergency")-->
+                        <mat-button-toggle value="emergency" class="red">
+                          Urgence
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+
+                  <div class="kt-space-20"></div>
+
+              
+                  <div>
+                  <h4 class="mb-2">Protocole recommandé</h4>
+                    <mat-form-field style="width: 50%">
+                          <mat-select placeholder="Anesthésie" (selectionChange)="onChange($event)" [(value)]="currentValue.anesthesy.choice_index">
+                            <mat-option *ngFor="let choice of currentValue.anesthesy.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                          </mat-select>                    
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                        <mat-select placeholder="Antibioprophylaxie" (selectionChange)="onChange($event)" [(value)]="currentValue.antibioprophylaxie.choice_index">
+                            <mat-option *ngFor="let choice of currentValue.antibioprophylaxie.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                        </mat-select>                   
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                    <mat-form-field style="width: 50%">
+                        <mat-select placeholder="APD - Rachi" (selectionChange)="onChange($event)" [(value)]="currentValue.apd_rachi.choice_index">
+                            <mat-option *ngFor="let choice of currentValue.apd_rachi.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                        </mat-select>            
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                          <mat-select placeholder="ALR" (selectionChange)="onChange($event)" [(value)]="currentValue.alr.choice_index">
+                              <mat-option *ngFor="let choice of currentValue.alr.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                          </mat-select>                    
+                    </mat-form-field>
+                  </div>
+
+                  <div class="kt-space-20"></div>
+
+                  <div>
+                   <h4 class="mb-2">Commentaires</h4>
+                    <mat-form-field style="width: 100%">
+                        <textarea
+                        style="overflow: hidden"
+                        placeholder="Commentaire"
+                        [(ngModel)]="currentValue.comment"
+                        matInput
+                        cdkTextareaAutosize
+                        (blur)="emitValues()"
+                        #autosize="cdkTextareaAutosize">
+                        </textarea>
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                      <h4 class="mb-2">Elements importants</h4>
+                        <mat-radio-group class="mt-5 mb-5" fxLayout="column" 
+                          fxLayoutAlign="space-between start" aria-label="Select an option">
+                          <div class="radio-container" *ngFor="let choice of currentValue.CI.choices" fxLayout="column" fxLayoutAlign="space-evenly center">
+                            <mat-slide-toggle [checked]="choice.active" (change)="choiceToggled(choice)">{{choice.choice}}</mat-slide-toggle>
+                          </div>
+                        </mat-radio-group>
+                       <mat-form-field style="width: 100%">
+                           <textarea
+                           style="overflow: hidden"
+                           placeholder="Commentaire"
+                           [(ngModel)]="currentValue.comment"
+                           matInput
+                           cdkTextareaAutosize
+                           (blur)="emitValues()"
+                           #autosize="cdkTextareaAutosize">
+                           </textarea>
+                       </mat-form-field>
+                  </div>
+
+              </div>
+            </div>
+
+
+            <!--Second row-->
+            <div fxFlex="1 0 calc(33,33% - 20px)" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+              <div fxFlex="33.33%">
+
+                  <div>
+                  <h4 class="mb-2">Intubation & Ventilation</h4>
+                   <mat-button-toggle-group [(ngModel)]="currentValue.intubation.choice_index"  (change)="emitValues()">  <!--Modification/creation of property "Expected difficult intubation" - j'ai mis le code SNOMED-CT pour le moment-->
+                        <mat-button-toggle value="not_expected_difficul_intubation" class="green">
+                          Simple
+                        </mat-button-toggle>
+                        <mat-button-toggle value="expected_difficul_intubation" class="red">
+                          Intubation difficile
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                   <!--A supprimer quand le transfert de class aura été fait (code comme c'était avant que je mette mon nez dedans)
+                   <mat-form-field style="width: 100%">
+                      <mat-select placeholder="Risque intubation" (selectionChange)="onChange($event)" [(value)]="currentValue.intubation.choice_index">
+                          <mat-option *ngFor="let choice of currentValue.intubation.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                      </mat-select>
+                   </mat-form-field>-->
+                   <mat-radio-group class="mt-5 mb-2" fxLayout="column" 
+                   fxLayoutAlign="space-between start" aria-label="Select an option">
+                    <div class="radio-container" *ngFor="let choice of currentValue.intubation_difficulty.choices" fxLayout="column" fxLayoutAlign="space-evenly center">
+                      <mat-slide-toggle [checked]="choice.active" (change)="choiceToggled(choice)">{{choice.choice}}</mat-slide-toggle>
+                    </div>
+                  </mat-radio-group>
+                  </div>
+              
+                  <div>
+                  <h4 class="mb-1">Bilan biologique</h4>
+                  <mat-form-field style="width: 100%">
+                    <input matInput placeholder="Pré-opératoire" (blur)="emitValues()" [(ngModel)]="currentValue.preop_summary">
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%">
+                    <input  matInput placeholder="Post-opératoire" (blur)="emitValues()" [(ngModel)]="currentValue.postop_summary">
+                  </mat-form-field>
+                  </div>
+
+              </div>
+            </div>
+
+
+            <!--Third row-->
+            <div fxFlex="1 0 calc(33,33% - 20px)" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+              <div fxFlex="33.33%">
+                  <h4 class="mb-2">Risque Thromboembolique</h4>
+                  <mat-button-toggle-group [(ngModel)]="currentValue.tromboembelic_risk.choice_index"  (change)="emitValues()">  <!--Modification/creation of property "Expected difficult intubation" - j'ai mis le code SNOMED-CT pour le moment-->
+                    <mat-button-toggle value="not_expected_difficul_intubation" class="green">
+                      Faible
+                    </mat-button-toggle>
+                    <mat-button-toggle value="expected_difficul_intubation" class="orange">
+                      Modéré
+                    </mat-button-toggle>
+                    <mat-button-toggle value="expected_difficul_intubation" class="red">
+                      Elevé
+                    </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <!--A supprimer quand le transfert aura été fait (c'est le code comme c'était avant que je mette mon nez dedans)
+                    <mat-form-field style="width: 100%">
+                      <mat-select placeholder="Risque thromboembolique" (selectionChange)="onChange($event)" [(value)]="currentValue.tromboembelic_risk.choice_index">
+                          <mat-option *ngFor="let choice of currentValue.tromboembelic_risk.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>-->
+                    <mat-radio-group class="mt-5 mb-2" fxLayout="column" 
+                    fxLayoutAlign="space-between start" aria-label="Select an option">
+                      <div class="radio-container" *ngFor="let choice of currentValue.troboembelic_prevention.choices" fxLayout="column" fxLayoutAlign="space-evenly center">
+                        <mat-slide-toggle [checked]="choice.active" (change)="choiceToggled(choice)">{{choice.choice}}</mat-slide-toggle>
+                      </div>
+                    </mat-radio-group>
+
+                    <div class="kt-space-20"></div>
+
+
+                    <h4 class="mb-2">Risque Hémorragique</h4>
+                    <mat-button-toggle-group [(ngModel)]="currentValue.hemoragic_risk.choice_index"  (change)="emitValues()">  <!--Modification/creation of property ?-->
+                    <mat-button-toggle value="low_risk_of_bleeding" class="green">
+                      Faible
+                    </mat-button-toggle>
+                    <mat-button-toggle value="moderate_risk_of_bleeding" class="orange">
+                      Modéré
+                    </mat-button-toggle>
+                    <mat-button-toggle value="hight_risk_of_bleeding, 711536002" class="red">
+                      Elevé
+                    </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <!--A supprimer quand le transfert aura été fait (c'est le code comme c'était avant que je mette mon nez dedans)
+                    <mat-form-field class="mb-5" style="width: 100%">
+                        <mat-select placeholder="Risque Hémoragique" (selectionChange)="onChange($event)" [(value)]="currentValue.hemoragic_risk.choice_index">
+                            <mat-option *ngFor="let choice of currentValue.hemoragic_risk.choices; let i = index" [value]="i">{{choice}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>-->
+                    <mat-radio-group fxLayout="column" 
+                      fxLayoutAlign="space-between start" aria-label="Select an option">
+                    <div class="radio-container" *ngFor="let choice of currentValue.hemoragic_prevention.choices" fxLayout="column" fxLayoutAlign="space-evenly center">
+                      <mat-slide-toggle [checked]="choice.active" (change)="choiceToggled(choice)">{{choice.choice}}</mat-slide-toggle>
+                    </div>
+                  </mat-radio-group>
+              </div>
+            </div>
+
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

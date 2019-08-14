@@ -1,0 +1,61 @@
+.dot {
+	height: 10px;
+	width: 10px;
+	border-radius: 50%;
+  }
+
+  ul {
+	list-style: none;
+	margin-bottom: 0;
+	li {
+		display: inline-block;
+		margin-bottom: 0;
+		input {
+			visibility: hidden;
+		}
+		label {
+			cursor: pointer;
+			padding: 4px;
+			margin-bottom: 0;
+		}
+		input:checked + label {
+			background: rgba(88,103,221,0.1);
+			border-radius: 10%;
+		}
+	}
+}
+
+.kt-badge {
+	height: 76px;
+	width: 76px;
+	h6 {
+		color: white;
+	}
+	input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+	input[type="number"] {
+		-moz-appearance: textfield;
+		text-align: center;
+		color: white;
+		width: 70px;
+		background: transparent;
+		border: none;
+		outline: none;
+		font-size: 30px;
+		cursor: pointer;
+	}
+}
+
+// Notes Editor
+:host ::ng-deep .ck-editor__editable {
+	min-height: 300px;
+
+	&.small {
+	  min-height: 100px;
+	}
+  }
+
+  :host ::ng-deep .text-block .ck-editor__editable {
+	min-height: 200px;
+  }

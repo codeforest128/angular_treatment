@@ -1,0 +1,70 @@
+.icon {
+  margin-right: 15px;
+}
+
+.kt-section {
+  margin-bottom: 0;
+}
+
+.pathologie-container {
+  position: relative;
+
+  .add-button {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+  }
+}
+
+.pathologie-count {
+  align-self: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #5868dc;
+}
+
+::ng-deep mat-radio-button {
+  padding-right: 0;
+}
+
+.patho-checkbox {
+  cursor: pointer;
+
+  &:hover {
+    color: #5868dc;
+  }
+}
+
+.i-circle {
+  border: 1px solid black;
+  padding: 5px 20px;
+  border-radius: 50%;
+  font-size: 35px;
+}
+
+.green {
+  background-color: rgba(91, 201, 28, 0.897);
+  color: white;
+  opacity: 0.5;
+}
+
+.orange {
+  background-color: rgba(255, 152, 34, 0.877);
+  color: white;
+  opacity: 0.5;
+}
+
+.red {
+  background-color: rgb(243, 40, 40);
+  color: white;
+  opacity: 0.5;
+}
+
+.mat-button-toggle-checked {
+  opacity: 1;
+}
+
+.ras:hover {
+  cursor: pointer;
+}
+

@@ -1,0 +1,512 @@
+<kt-monitoring-header [patientData]="consultation.patient_data" [allergies]="consultation.antecedents.allergies" [NIR]="consultation.intervention.details.NIR"></kt-monitoring-header>
+
+<div fxLayoutAlign="space-between" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap.xs="20px "
+fxLayoutGap="20px grid" fxLayoutGap.md="20px grid" fxLayoutGap.sm="20px grid" [formGroup]="newForm">
+
+	<kt-monitoring-overview class="kt-portlet"
+	[interventionDetails]="consultation.intervention.details"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+	</kt-monitoring-overview>
+
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					<!-- <img class="icon" src="https://img.icons8.com/pastel-glyph/64/000000/check-document.png" /> -->
+					Conclusion
+				</h3>
+			</div>
+		</div>
+		<div class="kt-portlet__body">
+			<div fxLayout class="mb-5">
+				<span class="btn btn-label-success btn-bold btn-sm">ASA {{this.consultation.intervention.protocol.ASA}}</span>
+				<h4 fxFlexOffset="35px" class="kt-font-bolder">Rachianesthesie</h4>
+			</div>
+			<div class="mb-4">
+				<h6 class="kt-font-bolder">Important: </h6>
+				<div fxLayout class="align-items-center">
+					<span class="kt-font-danger dot kt-bg-danger"></span>
+					<h6 fxFlexOffset="10px" class="mb-0">Obésité</h6>
+				</div>
+				<div fxLayout class="align-items-center">
+					<span class="kt-font-danger dot kt-bg-danger"></span>
+					<h6 fxFlexOffset="10px" class="mb-0">HTA Non Traitée</h6>
+				</div>
+			</div>
+			<div fxLayout>
+				<div fxLayout="column" fxLayoutAlign="center" class="mr-3">
+					<h6 class="align-self-center">Hb</h6>
+					<span class="btn btn-label-success btn-bold btn-sm">13</span>
+				</div>
+				<div fxLayout="column">
+					<h6 class="align-self-center">Pq</h6>
+					<span class="btn btn-label-primary btn-bold btn-sm">250</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					<!-- <img class="icon" src="https://img.icons8.com/pastel-glyph/64/000000/check-document.png" /> -->
+					Protocole Recommandé par IA
+				</h3>
+			</div>
+		</div>
+		<div class="kt-portlet__body">
+			<div>
+				<h6>- Rachianesthesie - 27g - 50mg de Chlorotekal</h6>
+			</div>
+			<div>
+				<h6>- Antibioprophylaxie : Non Recommandée</h6>
+			</div>
+			<div>
+				<h6>- Alimentation à H+1</h6>
+			</div>
+			<div>
+				<h6>- Analgésie : Paracétamol 1 g - Nefopam 20 mg - Kétoprofène 50 mg </h6>
+			</div>
+			<div>
+				<h6>- NVPO : Dexaméthasone 8 mg - Droperidol 0,625 mg</h6>
+			</div>
+		</div>
+	</div>
+
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Anesthesie Loco-Régionale
+				</h3>
+			</div>
+		</div>
+		<div class="kt-portlet__body" formGroupName="localAnesthesia">
+			<div fxLayout="row wrap" class="mb-2">
+				<mat-form-field style="width: 100%">
+					<input matInput formControlName="block" type="text" placeholder="Bloc réalisé">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<h6 class="kt-font-primary">Anesthésique local: </h6>
+				<ul fxLayout="row wrap" class="pl-0">
+					<li>
+						<input type='radio' formControlName="drug" value='naropeine' name='drug' id='naropeine'/>
+						<label class="kt-font-bolder" for='naropeine'>Naropeine</label>
+						-
+					</li>
+					<li>
+						<input type='radio' formControlName="drug" value='levobupicaine' name='drug'  id='levobupicaine'/>
+						<label class="kt-font-bolder" for='levobupicaine'>Levobupicaine</label>
+						-
+					</li>
+					<li>
+						<input type='radio' formControlName="drug" value='carbocaine' name='drug'  id='carbocaine'/>
+						<label class="kt-font-bolder" for='carbocaine'>Carbocaine</label>
+					</li>
+				</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<mat-form-field style="width: 100%">
+					<input matInput formControlName="concentration" type="text" placeholder="Concentration">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<mat-form-field style="width: 100%">
+					<input matInput formControlName="volume" type="text" placeholder="Volume">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<h6 class="kt-font-primary align-self-end">Echoguidage: </h6>
+					<ul fxLayout="row wrap" class="pl-0">
+						<li>
+							<input type='radio' formControlName="echoBoolean" value='true' name='echoBoolean' id='echoBoolean1'/>
+							<label class="kt-font-bolder" for='echoBoolean1'>Oui</label>
+							/
+						</li>
+						<li>
+							<input type='radio' formControlName="echoBoolean" value='false' name='echoBoolean'  id='echoBool2'/>
+							<label class="kt-font-bolder" for='echoBool2'>Non</label>
+							-
+						</li>
+						<li>
+							<input type='radio' formControlName="echoDifficulty" value='easy' name='echoDifficulty'  id='echoEasy'/>
+							<label class="kt-font-bolder" for='echoEasy'>Simple</label>
+							/
+						</li>
+						<li>
+							<input type='radio' formControlName="echoDifficulty" value='difficult' name='echoDifficulty'  id='echoHard'/>
+							<label class="kt-font-bolder" for='echoHard'>Difficile</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<mat-form-field style="width: 100%">
+					<input matInput type="text" placeholder="Complications">
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(50% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Induction
+				</h3>
+				<span class="btn btn-label-primary btn-bold btn-sm">Lancer Chrono (bouton à créer)</span>
+			</div>
+		</div>
+		<div class="kt-portlet__body">
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr>
+						<td style="width: 60%;">Propofol - Midazolam - Ketamine (mg)</td>
+						<td style="width: 30%;"></td>
+						<td style="width: 10%;"></td>
+					</tr>
+					<tr>
+						<td>Sufentanil (mg) - Remifentanil (cible AIVOC ng/ml)</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Celocurine - Atracium / Cisatrucurium / Rocuronium (mg)</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Dexaméthasone - Dropéridol - Ondansetron (mg)</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<div fxLayout="row wrap" class="mb-2">
+				<h6 class="kt-font-primary align-self-end">Réchauffement :</h6>
+					<ul fxLayout="row wrap" class="pl-0">
+						<li>
+							<input type='radio' value='false' name='passive_heat'  id='passive_heat_no'/>
+							<label class="kt-font-bolder" for='passive_heat_no'>Non</label>
+							-
+						</li>
+						<li>
+							<input type='radio' value='true' name='passive_heat' id='passive_heat_yes'/>
+							<label class="kt-font-bolder" for='passive_heat_yes'>Couverture chauffante</label>
+							-
+						</li>
+						<li>
+							<input type='radio' value='true' name='active_heat'  id='active_heat_yes'/>
+							<label class="kt-font-bolder" for='active_heat_yes'>Réchauffeur perf.</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">VVP :</h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' value='22G' name='catheter_size' id='catheter_size_22G'/>
+							<label class="kt-font-bolder" for='catheter_size_22G'>22 G</label>
+						</li>
+						<li>
+							<input type='radio' value='20G' name='catheter_size'  id='catheter_size_20G'/>
+							<label class="kt-font-bolder" for='catheter_size_20G'>20 G</label>
+						</li>
+						<li>
+							<input type='radio' value='18G' name='catheter_size'  id='catheter_size_18G'/>
+							<label class="kt-font-bolder" for='catheter_size_18G'>18 G</label>
+						</li>
+						<li>
+							<input type='radio' value='16G' name='catheter_size'  id='catheter_size_16G'/>
+							<label class="kt-font-bolder" for='catheter_size_16G'>16 G</label>
+						</li>
+						<li>
+							<input type='radio' value='14G' name='catheter_size'  id='catheter_size_14G'/>
+							<label class="kt-font-bolder" for='catheter_size_14G'>14 G</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">Curamètre : </h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' value='true' name='curarisation_monitoring' id='curarisation_monitoring_yes'/>
+							<label class="kt-font-bolder" for='curarisation_monitoring_yes'>Oui</label>
+						</li>
+						<li>
+							<input type='radio' value='false' name='curarisation_monitoring'  id='curarisation_monitoring_no'/>
+							<label class="kt-font-bolder" for='curarisation_monitoring_no'>Non</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-2">
+				<h6 class="kt-font-primary align-self-end">Autres :</h6>
+					<ul fxLayout="row wrap" class="pl-0">
+						<li>
+							<input type='radio' value='true' name='arterial_catheter'  id='arterial_catheter_yes'/>
+							<label class="kt-font-bolder" for='arterial_catheter_yes'>Cathéter Art.</label>
+							-
+						</li>
+						<li>
+							<input type='radio' value='true' name='central_venous_catheter' id='central_venous_catheter_yes'/>
+							<label class="kt-font-bolder" for='central_venous_catheter_yes'>VVC</label>
+							-
+						</li>
+						<li>
+							<input type='radio' value='true' name='gastric_tube' id='gastric_tube_yes'/>
+							<label class="kt-font-bolder" for='gastric_tube_yes'>SNG</label>
+							-
+						</li>
+						<li>
+							<input type='radio' value='true' name='oesophageal_doppler'  id='oesophageal_doppler_yes'/>
+							<label class="kt-font-bolder" for='oesophageal_doppler_yes'>Doppler Oesophagien</label>
+						</li>
+					</ul>
+			</div>
+		</div>
+	</div>
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Gestion Voies Aériennes
+				</h3>
+				<span class="btn btn-label-primary btn-bold btn-sm"> Timestamp à créer</span>
+			</div>
+		</div>
+		<div class="kt-portlet__body pb-0" formGroupName="airwayMgt">
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">Sonde :</h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' value='6' name='endotracheal_tube' id='endotracheal_tube_6'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_6'>6</label>
+						</li>
+						<li>
+							<input type='radio' value='6.5' name='endotracheal_tube'  id='endotracheal_tube_6.5'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_6.5'>6.5</label>
+						</li>
+						<li>
+							<input type='radio' value='7' name='endotracheal_tube'  id='endotracheal_tube_7'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_7'>7</label>
+						</li>
+						<li>
+							<input type='radio' value='7.5' name='endotracheal_tube'  id='endotracheal_tube_7.5'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_7.5'>7.5</label>
+						</li>
+						<li>
+							<input type='radio' value='8' name='endotracheal_tube'  id='endotracheal_tube_8'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_8'>8</label>
+						</li>
+						<li>
+							<input type='radio' value='8' name='endotracheal_tube'  id='endotracheal_tube_8.5'/>
+							<label class="kt-font-bolder" for='endotracheal_tube_8.5'>8.5</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">Masque Laryngé : </h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' formControlName="mask" value='3' name='mask' id='mask1'/>
+							<label class="kt-font-bolder" for='mask1'>3</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="mask" value='4' name='mask'  id='mask2'/>
+							<label class="kt-font-bolder" for='mask2'>4</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="mask" value='5' name='mask'  id='mask3'/>
+							<label class="kt-font-bolder" for='mask3'>5</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">Cormack : </h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' formControlName="cormack" value='1' name='cormack' id='cormack1'/>
+							<label class="kt-font-bolder" for='cormack1'>1</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="cormack" value='2' name='cormack'  id='cormack2'/>
+							<label class="kt-font-bolder" for='cormack2'>2</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="cormack" value='3' name='cormack'  id='cormack3'/>
+							<label class="kt-font-bolder" for='cormack3'>3</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="cormack" value='4' name='cormack'  id='cormack4'/>
+							<label class="kt-font-bolder" for='cormack4'>4</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<h6 class="kt-font-primary align-self-end">Nbr Essais : </h6>
+				<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+						<li>
+							<input type='radio' formControlName="attempt" value='1' name='attempt' id='attempt1'/>
+							<label class="kt-font-bolder" for='attempt1'>1</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="attempt" value='2' name='attempt'  id='attempt2'/>
+							<label class="kt-font-bolder" for='attempt2'>2</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="attempt" value='3' name='attempt'  id='attempt3'/>
+							<label class="kt-font-bolder" for='attempt3'>3</label>
+						</li>
+						<li>
+							<input type='radio' formControlName="attempt" value='4+' name='attempt'  id='attempt4'/>
+							<label class="kt-font-bolder" for='attempt4'>4 ou plus</label>
+						</li>
+					</ul>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<mat-form-field>
+					<input matInput formControlName="normal" type="text" placeholder="Normal">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<mat-form-field>
+					<input matInput formControlName="video" type="text" placeholder="Videolaryngoscopie">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<mat-form-field>
+					<input matInput formControlName="fibro" type="text" placeholder="Fibroscopie">
+				</mat-form-field>
+			</div>
+			<div fxLayout="row wrap" class="mb-1">
+				<mat-form-field>
+					<input matInput formControlName="airtrach" type="text" placeholder="Airtrach">
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(25% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Analgésie
+				</h3>
+				<span class="btn btn-label-primary btn-bold btn-sm"> Timestamp à créer</span>
+				</div>
+		</div>
+		<div class="kt-portlet__body" formGroupName="multiAnalgesia">
+			<mat-form-field style="width: 100%" class="pb-0">
+				<input matInput formControlName="paracetamol" type="text" placeholder="Paracetamol (g)">
+			</mat-form-field>
+			<mat-form-field style="width: 100%" class="pb-0">
+				<input matInput formControlName="nefopam" type="text" placeholder="Nefopam (mg)">
+			</mat-form-field>
+			<mat-form-field style="width: 100%" class="pb-0">
+				<input matInput formControlName="tramadol" type="text" placeholder="Tramadol (mg)">
+			</mat-form-field>
+			<mat-form-field style="width: 100%" class="pb-0">
+				<input matInput formControlName="ketoprofene" type="text" placeholder="Ketoprofene (mg)">
+			</mat-form-field>
+			<mat-form-field style="width: 100%" class="pb-0">
+				<input matInput formControlName="morphine" type="text" placeholder="Morphine (mg)">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="kt-portlet"
+	fxFlex="0 0 100%" fxFlex.md="0 0 100%" fxFlex.sm="0 0 100%" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Surveillance Constantes Vitales
+				</h3>
+			</div>
+		</div>
+		<div class="d-flex flex-row justify-content-between p-3">
+			<div class="kt-widget26__chart" style="height:265px; width: 630px;">
+				<canvas #chart ></canvas>
+			</div>
+			<div class="kt-widget26__chart" style="height:265px; width: 630px;">
+				<canvas #spo2bischart ></canvas>
+			</div>
+		</div>
+	</div>
+
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(50% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Ventilation
+				</h3>
+			</div>
+		</div>
+		<div class="kt-portlet__body">
+
+		</div>
+	</div>
+	<div class="kt-portlet"
+	fxFlex="0 0 calc(50% -15px)" fxFlex.md="0 0 calc(50%)" fxFlex.sm="0 0 calc(50%)" fxFlex.xs="auto">
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Notes
+				</h3>
+			</div>
+		</div>
+		<div class="kt-portlet__body pb-0">
+			<div fxLayout="row wrap" class="mb-1">
+						<h6 class="kt-font-primary align-self-end">Incident Per-op. : </h6>
+						<ul class="d-flex pl-3 flex-grow-1 justify-content-between" class="pl-0">
+								<li>
+									<input type='radio' value='true' name='perop_problem' id='perop_problem_yes'/>
+									<label class="kt-font-bolder" for='perop_problem_yes'>Oui</label>
+								</li>
+								<li>
+									<input type='radio' value='false' name='perop_problem'  id='perop_problem_no'/>
+									<label class="kt-font-bolder" for='perop_problem_no'>Non</label>
+								</li>
+						</ul>
+			</div>
+			<div class="kt-section">
+				<div class="kt-section__content text-block">
+				<ckeditor class="small" formControlName="notes" [editor]="Editor" [config]="editorConfig"></ckeditor>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="kt-section__content kt-section__content--solid
+	d-flex justify-content-center flex-grow-1 pb-0" formGroupName="realTimeInput">
+		<span class="kt-badge kt-badge--success kt-badge--xl kt-badge--rounded flex-column">
+			<h6 class="mr-auto pl-2">FC (bpm)</h6>
+			<input type="number" formControlName="heartFrequency" maxlength="3">
+		</span>
+		<span class="kt-badge kt-badge--info kt-badge--xl kt-badge--rounded flex-column">
+			<h6 class="mr-auto pl-2">SPO2 (%)</h6>
+			<input type="number" formControlName="spo2" maxlength="3">
+		</span>
+		<span class="kt-badge kt-badge--danger kt-badge--xl kt-badge--rounded flex-column">
+			<h6 class="mr-auto pl-2">PA (mmHg)</h6>
+			<input type="number" formControlName="bp" maxlength="3">
+		</span>
+		<span class="kt-badge kt-badge--warning kt-badge--xl kt-badge--rounded flex-column">
+			<h6 class="mr-auto pl-2">BIS</h6>
+			<input type="number" formControlName="bis" maxlength="3">
+		</span>
+		<span class="kt-badge kt-badge--xl kt-badge--rounded flex-column">
+			<h4>Chrono</h4>
+			<button *ngIf="!playTimer; else showTime" mat-button (click)="startTimer()">Start</button>
+			<ng-template #showTime>
+				<h5 (click)="pauseTimer()">{{time}}</h5>
+			</ng-template>
+		</span>
+	</div>
+
+
+</div>

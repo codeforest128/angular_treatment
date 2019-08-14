@@ -1,0 +1,47 @@
+<div fxLayoutAlign="start stretch" fxLayout="row wrap" fxLayout.xs="column">
+	<div fxFlexFill class="kt-portlet kt-portlet--height-fluid">
+		<div class="kt-portlet__body">
+			<div class="kt-widget">
+				<div class="widget-item" fxFlexOffset="50px">
+					<div class="kt-widget__icon">
+						<i class="material-icons">person</i>
+					</div>
+					<div class="kt-widget__details">
+						<h4 class="kt-widget__title kt-font-boldest">{{patientData.firstname}}<br> {{patientData.name.toUpperCase()}}</h4>
+						<h6 class="kt-widget__value kt-font-primary">DDN: 22/08/1986</h6>
+					</div>
+				</div>
+				<div class="widget-item">
+					<div class="kt-widget__icon">
+						<i *ngIf="patientData.gender == 'female'">&#9792;</i>
+						<i *ngIf="patientData.gender == 'male'">&#9794;</i>
+					</div>
+					<div class="kt-widget__details">
+						<h6 class="kt-widget__value kt-font-primary">NIR: {{NIR}}</h6>
+						<h6 class="kt-widget__value kt-font-primary">IPP: 123456</h6>
+						<h4 class="kt-widget__title kt-font-boldest kt-font-primary">32 Ans</h4>
+					</div>
+				</div>
+				<div class="widget-item">
+					<div class="kt-widget__details">
+						<h4 class="kt-widget__title kt-font-boldest kt-font-primary">BMI: <span class="kt-font-danger">31</span></h4>
+						<h5 class="kt-widget__value kt-font-primary kt-font-bolder">{{patientData.size}} cm - {{patientData.weight}} kg</h5>
+					</div>
+				</div>
+				<div class="widget-item">
+					<div class="kt-widget__details">
+						<h6 class="kt-widget__value kt-font-bolder">Allergie<span *ngIf="allergies.length > 1">s</span> : </h6>
+						<h4 class="kt-widget__title kt-font-boldest kt-font-primary" *ngIf="!allergies.length">Aucune</h4>
+						<span class="kt-widget__value kt-font-bolder kt-font-primary" *ngFor="let allergy of allergies">{{allergy.display_name || allergy.pathology_short_name}}<br></span>
+					</div>
+				</div>
+				<div class="widget-item">
+					<div class="kt-widget__details">
+						<h6 class="kt-widget__value kt-font-bolder">Dr. Kelso</h6>
+						<h6 class="kt-widget__value kt-font-bolder kt-font-primary">Hôpital du Sacré Coeur</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

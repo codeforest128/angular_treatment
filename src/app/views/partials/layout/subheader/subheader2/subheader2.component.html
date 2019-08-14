@@ -1,0 +1,47 @@
+<!-- begin:: Content Head -->
+<div *ngIf="title && !(title == 'consult' || title == 'perop' || title == 'sspi' || title == 'ambu' || title == 'hospi')" class="kt-subheader kt-grid__item" [hidden]="subheaderService.disabled$ | async" id="kt_subheader">
+	<div class="kt-subheader__main">
+		<h3 class="kt-subheader__title">{{ title }}</h3>
+		<span _ngcontent-c14="" class="kt-subheader__separator kt-subheader__separator--v"></span>
+		<a href="javascript:;" *ngIf="action" (click)="callAction()"  class="btn btn-label-primary btn-bold btn-icon-h">
+			<i class="la la-plus"></i> Créer une nouvelle consultation
+		</a>
+	</div>
+</div>
+
+<div *ngIf="title && (title == 'consult' || title == 'perop' || title == 'sspi' || title == 'ambu' || title == 'hospi')" class="kt-subheader kt-grid__item" id="kt_subheader">
+		<div class="kt-subheader__main">
+
+			<h3 (click)="moveTo('/dashboard/consultation/' + consultationId)" [class.notselected]="title != 'consult'" [class.selected]="title == 'consult'" [class.kt-subheader__title]="title != 'consult'">Consultation</h3>
+			<span _ngcontent-c14="" class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+			<h3 (click)="moveTo('/dashboard/monitoring/' + consultationId)" [class.notselected]="title != 'perop'" [class.selected]="title == 'perop'" [class.kt-subheader__title]="title != 'perop'">Per-opératoire</h3>
+			<span _ngcontent-c14="" class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+			<h3 (click)="moveTo('/dashboard/sspi/' + consultationId)" [class.notselected]="title != 'sspi'" [class.selected]="title == 'sspi'" [class.kt-subheader__title]="title != 'sspi'">SSPI</h3>
+			<span _ngcontent-c14="" class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+			<h3 (click)="moveTo('/dashboard/ambulatory/' + consultationId)" [class.notselected]="title != 'ambu'" [class.selected]="title == 'ambu'" [class.kt-subheader__title]="title != 'ambu'">Ambulatoire</h3>
+			<span _ngcontent-c14="" class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+			<h3 [class.notselected]="title != 'hospi'" [class.selected]="title == 'hospi'" [class.kt-subheader__title]="title != 'hospi'">Hospitalisation</h3>
+		</div>
+
+	<div *ngIf="title && title == 'consult'">
+		<button (click)="saveConsultationToPDF()" mat-raised-button color="primary">
+			<span *ngIf="save_pdf_loading | async; else pdfNotLoading">
+				<mat-icon style="padding-top: 10px">
+					<mat-spinner color="accent" diameter="20"></mat-spinner>
+				</mat-icon>
+				Generation du PDF
+			</span>
+			<ng-template #pdfNotLoading>
+				<span>
+					Enregistrer
+				</span>
+			</ng-template>
+		</button>
+	</div>
+
+	</div>
+<!-- end:: Content Head -->

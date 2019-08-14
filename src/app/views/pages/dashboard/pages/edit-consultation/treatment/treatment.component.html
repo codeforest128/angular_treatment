@@ -1,0 +1,88 @@
+<div fxFlexFill class="kt-portlet pathologie-container">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        <img *ngIf="iconPath" class="icon" [attr.src]="iconPath" /> {{title}}
+      </h3>
+    </div>
+    <span *ngIf="(customs.length + selecteds.length) as count" class="pathologie-count">
+      {{ count }}
+    </span>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="kt-section">
+      <div class="kt-section__content">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px grid">
+          <div fxFlex="100%" style="padding-bottom: 0px!important">
+            <mat-form-field fxFill>
+              <input matInput (input)="onInputChanged($event)" [placeholder]="inputPlaceholder" [(ngModel)]="inputValue"
+                [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayfn"
+                (optionSelected)="selected_option($event)">
+                <mat-option *ngFor="let option of filteredAutocompOptions" [value]="option">
+                  {{option.medic_name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="patho-checkbox" fxFlex="100%" (click)="reset()" style="padding-bottom: 0px;">
+            <mat-checkbox style="margin-right: 10px" (click)="$event.preventDefault()" [checked]="!selecteds.length && !customs.length"
+              class="example-margin"></mat-checkbox>
+            <span>{{ noneText }}</span>
+          </div>
+          <div class="patho-checkbox" fxFlex="100%" *ngFor="let val of customs.slice(0, 5)"
+            >
+            <div fxFlex="30%" (click)="toggleItem($event, val)" style="padding-top: 50px;">
+              <mat-checkbox style="margin-right: 10px" (click)="$event.preventDefault()"
+                [checked]="isValInArray(customs, val)" class="example-margin"></mat-checkbox>
+              <span>{{ val.medic_name }}</span>
+            </div>
+            <div fxFlex="70%" fxLayout="column" style="text-align: center;">
+              <div fxFlex="20%" fxLayout="row" style="padding-top: 30px;">
+                <div fxFlex="20%">Morning</div>
+                <div fxFlex="20%">Midday</div>
+                <div fxFlex="20%">Evening</div>
+                <div fxFlex="20%">Night</div>
+                <div fxFlex="20%">Unit</div>
+              </div>
+              <div fxFlex="20%" fxLayout="row">
+                <div fxFlex="20%" *ngFor="let medic of medics">
+                  <mat-icon (click)="increase(medic.id,val.medic_cis)" style="padding-top: 18px;">keyboard_arrow_up</mat-icon>
+                </div>
+              </div>
+              <div fxFlex="20%" fxLayout="row">
+                <div fxFlex="20%">
+                  <input [(ngModel)]="morning[val.medic_cis]" style="text-align: center;" class="form-control form-control-sm1" type="text">
+                </div>
+                <div fxFlex="20%">
+                  <input [(ngModel)]='midday[val.medic_cis]' style="text-align: center;" class="form-control form-control-sm1" type="text">
+                </div>
+                <div fxFlex="20%">
+                  <input [(ngModel)]='evening[val.medic_cis]' style="text-align: center;" class="form-control form-control-sm1" type="text">
+                </div>
+                <div fxFlex="20%">
+                  <input [(ngModel)]='night[val.medic_cis]' style="text-align: center;" class="form-control form-control-sm1" type="text">
+                </div>
+                <div fxFlex="20%">
+                  <input [(ngModel)]='unit[val.medic_cis]' style="text-align: center;" class="form-control form-control-sm1" type="text">
+                </div>
+              </div>
+              <div fxFlex="20%" fxLayout="row">
+                <div fxFlex="20%" *ngFor="let medic of medics">
+                  <mat-icon (click)="decrease(medic.id,val.medic_cis)" style="padding-top: 10px;">keyboard_arrow_down</mat-icon>
+                </div>
+              </div>
+              <div fxFlex="20%" fxLayout="row">
+                <div fxFlex="20%">Speficic Dosis:</div>
+                <div fxFlex="80%"><input class="form-control form-control-sm" type="text" placeholder="free text zone"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button mat-mini-fab color="primary" (click)="openAddDialog()" class="add-button">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

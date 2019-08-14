@@ -1,0 +1,98 @@
+<div style="width: 1400px; display: flex; flex-direction: column" class="mat-elevation-z8">
+  <mat-table *ngIf="dataSource" #table [dataSource]="dataSource" style="padding-top: 10px">
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+<!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID.</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+  </ng-container>
+
+<!-- Patient Name Column -->
+    <ng-container matColumnDef="patientFullName">
+		<!-- Header -->
+		<mat-header-cell mat-header-cell *matHeaderCellDef>
+			Patients
+			<mat-form-field class="filter" floatLabel="never">
+				<mat-label>Nom du patient</mat-label>
+				<input matInput [formControl]="nameFilter">
+			</mat-form-field>
+		</mat-header-cell>
+		<!--Data-->
+      <mat-cell *matCellDef="let element">{{element.patientFullName}}</mat-cell>
+    </ng-container>
+
+<!-- Intervention Name Column -->
+    <ng-container matColumnDef="interventionName">
+		<!-- Header -->
+		<mat-header-cell mat-header-cell *matHeaderCellDef>
+			Intervention prévue
+			<mat-form-field class="filter" floatLabel="never">
+				<mat-label>Nom de l'intervention</mat-label>
+				<input matInput [formControl]="interventionNameFilter">
+			</mat-form-field>
+		</mat-header-cell>
+		<!--Data-->
+      <mat-cell *matCellDef="let element">{{element.interventionName}}</mat-cell>
+    </ng-container>
+
+<!-- Surgeon Name Column -->
+    <ng-container matColumnDef="chirurgienName">
+		<!-- Header -->
+		<mat-header-cell mat-header-cell *matHeaderCellDef>
+			Chirurgien
+			<mat-form-field class="filter" floatLabel="never">
+				<mat-label>Nom du chirurgien</mat-label>
+				<input matInput [formControl]="surgeonNameFilter">
+			</mat-form-field>
+		</mat-header-cell>
+		<!--Data-->
+      <mat-cell *matCellDef="let element">{{element.chirurgienName}}</mat-cell>
+    </ng-container>
+
+<!-- Intervention Date Column -->
+    <ng-container matColumnDef="interventionDate">
+		<!-- Header -->
+		<mat-header-cell mat-header-cell *matHeaderCellDef>
+			Date de l'intervention
+			<mat-form-field class="filter" floatLabel="never">
+				<input matInput [matDatepicker]="picker" placeholder="date" [formControl]="interventionDateFilter">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</mat-header-cell>
+		<!--Data-->
+      <mat-cell *matCellDef="let element">{{element.interventionDate == null ? '' : (formateDate(element.interventionDate)) }}</mat-cell>
+    </ng-container>
+
+<!-- Consultation Date Column -->
+    <ng-container matColumnDef="createdAt">
+		<!-- Header -->
+		<mat-header-cell mat-header-cell *matHeaderCellDef>
+			Date de la consultation
+			<mat-form-field class="filter" floatLabel="never">
+				<input matInput [matDatepicker]="picker" placeholder="date" [formControl]="consultationDateFilter">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</mat-header-cell>
+		<!--Data-->
+      <mat-cell *matCellDef="let element">{{formateDate(element.createdAt)}}</mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-button color="accent"><a (click)="goToConsultation(element)"><i class="la la-edit"></i> Editer</a></button>&nbsp;
+        <button mat-icon-button color="warn" matTooltip="Supprimer" type="button" (click)="delete(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+	<mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

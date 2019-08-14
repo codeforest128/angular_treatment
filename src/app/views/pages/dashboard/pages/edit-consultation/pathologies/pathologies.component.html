@@ -1,0 +1,87 @@
+<div fxFlexFill class="kt-portlet pathologie-container">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">
+        <img *ngIf="iconPath" class="icon" [attr.src]="iconPath" /> {{title}}
+      </h3>
+    </div>
+    <span class="pathologie-count">
+      <h4 (click)="ras()" class="ras">RAS</h4>
+    </span>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="kt-section">
+      <div class="kt-section__content">
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px grid">
+            <div fxFlex="100%">
+              <mat-form-field fxFill>
+                <input matInput (keyup.enter)="autocomplete ? null : addCustomNoAutocomp()" (input)="onInputChanged($event)" [placeholder]="inputPlaceholder" [(ngModel)]="inputValue" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayfn" (optionSelected)="selected_option($event)">
+                  <mat-option *ngFor="let option of filteredAutocompOptions" [value]="option">
+                    {{option.pathology_short_name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <a *ngIf="!autocomplete" mat-icon-button matSuffix (click)="addCustomNoAutocomp()">
+                  <mat-icon>add</mat-icon>
+                </a>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100%">
+              <!-- AVAILABLE PATHOLOGIES-->
+              Suggestions
+                <mat-chip-list>
+                    <mat-chip *ngFor="let default of currentDefaultValues" (click)="toggleItem($event, default)">{{default.display_name || default.pathology_short_name}}</mat-chip>
+                </mat-chip-list>
+              <!-- <span class="patho-checkbox" (click)="toggleItem($event, val)"><mat-checkbox (click)="toggleItem($event, val)" style="margin-right: 10px" (click)="$event.preventDefault()" [checked]="true" class="example-margin"></mat-checkbox>
+              <span>{{ val.display_name || val.pathology_short_name }}</span></span><span>&nbsp;&nbsp;</span>
+              <span *ngIf="!val.hasOwnProperty('comment')" class="patho-checkbox" ngbTooltip="Ajouter un commentaire" (click)="add_delete_comment(val, true)"><i class="far fa-plus-square"></i></span>
+              <span *ngIf="val.hasOwnProperty('comment')" class="patho-checkbox" ngbTooltip="Supprimer un commentaire" (click)="add_delete_comment(val, false)"><i class="far fa-minus-square"></i></span><br>
+              <mat-form-field *ngIf="val.hasOwnProperty('comment')" style="width: 100%;">
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          (blur)="emitValues()"
+                          [(ngModel)]="val.comment"
+                          cdkAutosizeMinRows="1"
+                          style="overflow:hidden;"></textarea>
+              </mat-form-field> -->
+            </div>
+            <!--SELECTED PATHOLOGIES-->
+            <div fxFlex="100%">
+            Sélections
+            <mat-chip-list>
+                <mat-chip *ngFor="let val of currentValues" [color]="val.important ? 'warn' : 'primary'" selected>
+                  {{val.display_name || val.pathology_short_name}}
+                  <mat-icon (click)="toggleItem($event, val)" matChipRemove>cancel</mat-icon>
+                  <mat-form-field style="width: 66,66%">
+                      <textarea matInput matTextareaAutosize matAutosizeMinRows="1"
+                      matAutosizeMaxRows="5"></textarea>
+                  </mat-form-field>
+                </mat-chip>
+              </mat-chip-list>
+              <!-- <div class="patho-checkbox" fxFlex="100%" *ngFor="let val of currentDefaultValues.slice(0, 5 - currentValues.length)" (click)="toggleItem($event, val)">
+              <mat-checkbox style="margin-right: 10px" (click)="$event.preventDefault()" [checked]="false" class="example-margin"></mat-checkbox>
+              <span>{{ val.display_name || val.pathology_short_name }} </span>
+              </div> -->
+             </div>
+
+            <!--Free text zone-->
+            <mat-form-field style="width: 100%">
+                <textarea
+                style="overflow: hidden"
+                placeholder="Commentaire"
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize">
+              </textarea>
+            </mat-form-field>
+
+            <div class="kt-section" style="padding-top: 5px">
+              <div class="kt-section__content text-block">
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

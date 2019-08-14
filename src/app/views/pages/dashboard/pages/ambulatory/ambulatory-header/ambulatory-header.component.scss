@@ -1,0 +1,21 @@
+.widget-item {
+	display: flex;
+	flex-direction: row;
+	padding: 0rem 1.5rem 0 0;
+	div {
+		flex-direction: column;
+		align-self: center;
+		i {
+			font-size: 2.7rem !important;
+			padding-right: 10px;
+		}
+	}
+}
+
+.kt-widget {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}

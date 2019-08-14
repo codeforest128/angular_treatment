@@ -1,0 +1,105 @@
+
+<h1 mat-dialog-title>Nouvelle consultation</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (submit)="createConsultation()">
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+        <mat-form-field fxFlex="grow">
+            <input matInput type="text" placeholder="Nom du patient" formControlName="patientLastName">
+            <mat-error *ngIf="patientLastName.errors?.required && (patientLastName.touched || patientLastName.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="patientLastName.errors?.pattern && (patientLastName.touched || patientLastName.dirty)">
+                Le format du nom n'est pas correct
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="grow">
+            <input matInput type="text" placeholder="Prénom du patient" formControlName="patientFirstName">
+            <mat-error *ngIf="patientFirstName.errors?.required && (patientFirstName.touched || patientFirstName.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="patientFirstName.errors?.pattern && (patientFirstName.touched || patientFirstName.dirty)">
+                Le format du prénom n'est pas correct
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <mat-tab-group color="accent" class="mb-3">
+        <mat-tab fxFlew="grow" (click)="setForm('gender', 'male')">
+            <ng-template mat-tab-label>
+                <img width="20" src="https://img.icons8.com/color/48/000000/male.png"> Masculin
+            </ng-template>
+        </mat-tab>
+        <mat-tab fxFlex="grow" label="Femme" (click)="setForm('gender', 'male')">
+            <ng-template mat-tab-label>
+                <img width="20" src="https://img.icons8.com/color/48/000000/female.png"> Féminin
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+        <mat-form-field fxFlex="grow">
+            <input matInput type="number" placeholder="Poids (kg)" formControlName="weightInKg">
+            <mat-error *ngIf="weightInKg.errors?.required && (weightInKg.touched || weightInKg.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="weightInKg.errors?.min && (weightInKg.touched || weightInKg.dirty)">
+                Le poids doit être supérieur à 0
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="grow">
+            <input matInput type="number" placeholder="Taille (cm)" formControlName="sizeInCm">
+            <mat-error *ngIf="sizeInCm.errors?.required && (sizeInCm.touched || sizeInCm.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="sizeInCm.errors?.min && (sizeInCm.touched || sizeInCm.dirty)">
+                Le taille doit être supérieure à 0
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <mat-tab-group color="accent" class="mb-3">
+        <mat-tab fxFlew="grow" label="Hospitalisation" (click)="setForm('interventionType', 'hospitalisation')"></mat-tab>
+        <mat-tab fxFlex="grow" label="Ambulatoire" (click)="setForm('interventionType', 'ambulatoire')"></mat-tab>
+    </mat-tab-group>
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+        <mat-form-field fxFlex="grow">
+            <input matInput type="text" placeholder="Intervention prévue" formControlName="interventionName">
+            <mat-error *ngIf="interventionName.errors?.required && (interventionName.touched || interventionName.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="interventionName.errors?.pattern && (interventionName.touched || interventionName.dirty)">
+                Le format du nom de l'intervention n'est pas correct
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="grow">
+            <input matInput type="text" placeholder="NIR" formControlName="nir">
+            <mat-error *ngIf="nir.errors?.required && (nir.touched || nir.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="nir.errors?.pattern && (nir.touched || nir.dirty)">
+                Le NIR doit être composé de 13 chiffres
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+        <mat-form-field fxFlex="grow">
+            <input matInput type="text" placeholder="Nom du chirurgien" formControlName="chirurgienName">
+            <mat-error *ngIf="chirurgienName.errors?.required && (chirurgienName.touched || chirurgienName.dirty)">
+                Le champ est requis
+            </mat-error>
+            <mat-error *ngIf="chirurgienName.errors?.pattern && (chirurgienName.touched || chirurgienName.dirty)">
+                Le format du nom du chirurgien n'est pas correct
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="grow">
+            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Date de l'intervention" formControlName="interventionDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="interventionDate.errors?.required && (interventionDate.touched || interventionDate.dirty)">
+                Le champ est requis
+            </mat-error>
+        </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end start">
+  <button mat-button (click)="cancel()">Annuler</button>
+  <button mat-button color="primary" (click)="createConsultation()" cdkFocusInitial>Créer</button>
+</div>
